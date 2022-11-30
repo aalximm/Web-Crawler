@@ -16,8 +16,8 @@ public class Main {
         JsonlFile jsonl = new JsonlFile(fileName);
         Links linksObj = new Links();
         Function<String, Boolean> constrain = (String link) -> {
-          return link.startsWith("http://www.thefreedictionary.com/")
-                  || link.startsWith("https://www.thefreedictionary.com/");
+          return link.startsWith(url)
+                  || link.startsWith(url.replaceFirst("(http)", "$1s"));
 //                  && !link.startsWith("http://up.")
 //                  && !link.startsWith("http://secure")
 //                  && !link.startsWith()

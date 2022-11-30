@@ -1,0 +1,9 @@
+version: '3.5'
+services:
+  crawler:
+    build:
+      context: .
+    working_dir: /test-task
+    volumes:
+      - ./results:/test-task/results
+    command: java -cp target/test-task-1.0-SNAPSHOT.jar Main

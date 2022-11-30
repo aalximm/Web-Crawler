@@ -31,10 +31,10 @@ public class WebCrawler extends RecursiveAction {
             Page page = new Page(url);
             synchronized (file){
                 String html = page.getHtml();
-                long start_writing = new Date().getTime();
                 file.write(url,
                         html.replaceAll("\n", "").replaceAll("\r", "")
                 );
+                System.out.println("Add url: " + url);
             }
             synchronized (linksObj) {
                 linksObj.removeAvailableLink(url);
@@ -44,7 +44,6 @@ public class WebCrawler extends RecursiveAction {
             for(String link : newLinks){
                 synchronized (linksObj) {
                     if (linksObj.addLink(link)) {
-                        System.out.println("Add url: " + link);
                         crawlers.add(new WebCrawler(link, this.linksObj, this.file));
                         crawlers.get(crawlers.size() - 1).fork();
                     }

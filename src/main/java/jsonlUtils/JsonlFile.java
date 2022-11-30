@@ -24,7 +24,6 @@ public class JsonlFile {
 
     public void write(String url, String html) throws IOException {
         assert (writer != null);
-//        html = html.replaceAll("\n", "");
         String newLine = "{\"url\": \"" + url + "\", \"html\": \"" + html + "\"}\n";
         writer.write(newLine);
     }

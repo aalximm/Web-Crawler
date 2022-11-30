@@ -15,14 +15,12 @@ public class Main {
         String fileName = dotenv.get("RESULT_FILE_NAME");
         JsonlFile jsonl = new JsonlFile(fileName);
         Links linksObj = new Links();
+
         Function<String, Boolean> constrain = (String link) -> {
           return link.startsWith(url)
                   || link.startsWith(url.replaceFirst("(http)", "$1s"));
-//                  && !link.startsWith("http://up.")
-//                  && !link.startsWith("http://secure")
-//                  && !link.startsWith()
-//                  && !link.contains("facebook")
         };
+
         linksObj.setConstrain(constrain);
         jsonl.createFile();
         jsonl.open();

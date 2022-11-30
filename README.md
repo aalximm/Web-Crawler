@@ -19,3 +19,9 @@
 ## Launch via the docker-compose
 
 - `docker-compose up --build`
+  
+
+delete containers after launch:
+  
+- `docker rm $(docker ps -a -f name=test-task-crawler-* -q)
+    `

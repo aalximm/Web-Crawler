@@ -7,13 +7,13 @@ import java.util.List;
 import java.util.function.Function;
 
 public class Links {
-    private List<String> links;
+    private final List<String> links;
 
     public List<String> getLinks() {
         return links;
     }
 
-    private List<String> availableLinks;
+    private final List<String> availableLinks;
 
     private Function<String, Boolean> constrain;
 

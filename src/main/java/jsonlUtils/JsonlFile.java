@@ -3,6 +3,8 @@ package jsonlUtils;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 public class JsonlFile {
     private String path = "results/";
@@ -13,6 +15,7 @@ public class JsonlFile {
 
     public void createFile() throws IOException {
         File file = new File(path);
+        Files.createDirectories(Path.of(path).getParent());
         if(file.exists()) file.delete();
         file.createNewFile();
     }

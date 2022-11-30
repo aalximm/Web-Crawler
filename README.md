@@ -5,7 +5,7 @@
 - After the program is executed, the .jsonl with results will be located in `test-task/results`
 - The file `.env` contains the following parametrs:
     - ROOT_URL - url where the search starts
-    - TIMEOUT - the time after which the program will stop its execution
+    - TIMEOUT - the time(in seconds) after which the program will stop its execution
     - RESULT_FILE_NAME - name of .jsonl file with results
 
 ## Launching via the console

@@ -1,3 +1,4 @@
+import io.github.cdimascio.dotenv.Dotenv;
 import jsonlUtils.JsonlFile;
 import multiThreading.WebCrawler;
 import pageUtils.Links;
@@ -8,11 +9,13 @@ import java.util.function.Function;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        String url = "http://www.thefreedictionary.com/";
+        Dotenv dotenv = Dotenv.load();
+        String url = dotenv.get("ROOT_URL");
         JsonlFile jsonl = new JsonlFile("thefreedictionary");
-        Links linksObj = new Links();
+        int maxCount = Integer.parseInt(dotenv.get("NUMBER_OF_LINKS"));
+        Links linksObj = new Links(maxCount);
         Function<String, Boolean> constrain = (String link) -> {
-          return link.contains("dictionary");
+          return link.startsWith(url);
         };
         linksObj.setConstrain(constrain);
         jsonl.createFile();

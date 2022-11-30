@@ -5,7 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class JsonlFile {
-    private String path = "src/data/";
+    private String path = "results/";
     private FileWriter writer = null;
     public JsonlFile(String fileName){
         this.path = path + fileName + ".jsonl";

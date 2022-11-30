@@ -26,7 +26,7 @@ public class Page {
     }
 
     public List<String> getLinks(){
-        List<String> links = Jsoup.parse(html, url).select("body a[href^=http]").eachAttr("href");
+        List<String> links = Jsoup.parse(html, url).select("body a[href]").eachAttr("abs:href");
         return links;
     }
 }

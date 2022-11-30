@@ -8,22 +8,30 @@ import java.util.concurrent.ForkJoinPool;
 import java.util.function.Function;
 
 public class Main {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, InterruptedException {
         Dotenv dotenv = Dotenv.load();
         String url = dotenv.get("ROOT_URL");
-        JsonlFile jsonl = new JsonlFile("thefreedictionary");
-        int maxCount = Integer.parseInt(dotenv.get("NUMBER_OF_LINKS"));
-        Links linksObj = new Links(maxCount);
+        int timeout = Integer.parseInt(dotenv.get("TIMEOUT")) * 1000;
+        String fileName = dotenv.get("RESULT_FILE_NAME");
+        JsonlFile jsonl = new JsonlFile(fileName);
+        Links linksObj = new Links();
         Function<String, Boolean> constrain = (String link) -> {
-          return link.startsWith(url);
+          return link.startsWith("http://www.thefreedictionary.com/")
+                  || link.startsWith("https://www.thefreedictionary.com/");
+//                  && !link.startsWith("http://up.")
+//                  && !link.startsWith("http://secure")
+//                  && !link.startsWith()
+//                  && !link.contains("facebook")
         };
         linksObj.setConstrain(constrain);
         jsonl.createFile();
         jsonl.open();
-//        ForkJoinPool fjp = ForkJoinPool.commonPool();
+        ForkJoinPool fjp = ForkJoinPool.commonPool();
         WebCrawler crawler = new WebCrawler(url, linksObj, jsonl);
-        crawler.fork();
-        crawler.join();
+        fjp.execute(crawler);
+        Thread.sleep(timeout);
+        System.out.println("terminating...");
+        fjp.shutdown();
         jsonl.close();
     }
 }
